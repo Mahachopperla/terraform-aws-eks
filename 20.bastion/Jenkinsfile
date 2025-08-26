@@ -51,10 +51,10 @@ pipeline {
             }
         }
         stage('apply') {
-            input {
+             /*  input {
                 message "Should we continue?"
                 ok "Yes, we should."
-            }
+            } */
             steps {
                 script{
                     withAWS(credentials: 'AWS-auth', region: 'us-east-1') { // 'AWS-auth' is the ID of your AWS credentials in Jenkins
