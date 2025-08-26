@@ -30,7 +30,7 @@ pipeline {
                     withAWS(credentials: 'AWS-auth', region: 'us-east-1') { // 'AWS-auth' is the ID of your AWS credentials in Jenkins
                         
                         sh """
-                            cd 01.vpc
+                            cd 10.SG
                             terraform init -reconfigure              
                         """
                     }
@@ -43,7 +43,7 @@ pipeline {
                     withAWS(credentials: 'AWS-auth', region: 'us-east-1') { // 'AWS-auth' is the ID of your AWS credentials in Jenkins
                         
                         sh """
-                            cd 01.vpc
+                            cd 10.SG
                             terraform plan             
                         """
                     }
@@ -60,7 +60,7 @@ pipeline {
                     withAWS(credentials: 'AWS-auth', region: 'us-east-1') { // 'AWS-auth' is the ID of your AWS credentials in Jenkins
                         
                         sh """
-                            cd 01.vpc
+                            cd 10.SG
                             terraform apply -auto-approve           
                         """
                     }
@@ -68,16 +68,7 @@ pipeline {
             }
         }
     }
-    stage('Trigger Downstream Job - sg') {
-                steps {
-                    script {
-                        build job: '10-sg', wait: false, propagate: false
-                        // '10-sg' is the name of the downstream job.
-                        // 'wait: false' ensures 01-vpc will not wait for 10-sg to complete.
-                        // 'propagate: false' ensures 01-vpc's status will not reflect 10-sg's status.
-                    }
-                }
-            }
+   
 
     post {
          always { 
