@@ -67,8 +67,7 @@ pipeline {
                 }
             }
         }
-    }
-    stage('Trigger Downstream Job - sg') {
+        stage('Trigger Downstream Job - sg') {
                 steps {
                     script {
                         build job: '10-sg', wait: false, propagate: false
@@ -79,6 +78,8 @@ pipeline {
                 }
             }
 
+    }
+    
     post {
          always { 
             echo 'I will always say Hello again!'
