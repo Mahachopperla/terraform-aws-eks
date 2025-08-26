@@ -30,7 +30,7 @@ pipeline {
                     withAWS(credentials: 'AWS-auth', region: 'us-east-1') { // 'AWS-auth' is the ID of your AWS credentials in Jenkins
                         
                         sh """
-                            cd 10.SG
+                            cd 80.eks
                             terraform init -reconfigure              
                         """
                     }
@@ -43,7 +43,7 @@ pipeline {
                     withAWS(credentials: 'AWS-auth', region: 'us-east-1') { // 'AWS-auth' is the ID of your AWS credentials in Jenkins
                         
                         sh """
-                            cd 10.SG
+                            cd 80.eks
                             terraform plan             
                         """
                     }
@@ -60,49 +60,13 @@ pipeline {
                     withAWS(credentials: 'AWS-auth', region: 'us-east-1') { // 'AWS-auth' is the ID of your AWS credentials in Jenkins
                         
                         sh """
-                            cd 10.SG
+                            cd 80.eks
                             terraform apply -auto-approve           
                         """
                     }
                 }
             }
         }
-         stage('Trigger Downstream Jobs parallely') {
-                steps {
-                    script {
-                        parallel(
-                        'bastion': {
-                            build(
-                            job: '20-bastion',
-                            wait: false,       // fire and forget (runs asynchronously)
-                            propagate: false   // don't fail this pipeline if it fails
-                        )
-                        },
-                        'eks': {
-                            build(
-                            job: '80-eks',
-                            wait: false,       // fire and forget (runs asynchronously)
-                            propagate: false   // don't fail this pipeline if it fails
-                        )
-                        },
-                        'acm-then-alb': {
-                            build(
-                                job: '60-acm',
-                                wait: true,
-                                propagate: true   // if ACM fails, ALB won’t run
-                            ) 
-                            // Then ALB
-                            build(
-                                job: '70-frontend-alb',
-                                wait: false,
-                                propagate: false  // ALB failure won’t fail main pipeline
-                            )
-                        }
-                    )
-                    }
-                }
-            }
-
     }
    
     post {
