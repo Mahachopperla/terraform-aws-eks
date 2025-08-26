@@ -1,6 +1,7 @@
 
 module "bastion" {
-  source = "../../terraform-securitygroup-module"
+  #source = "../../terraform-securitygroup-module"
+  source = "git::https://github.com/Mahachopperla/terraform-securitygroup-module.git?ref=main"
   sg_name = var.bastion_sg_name
   sg_description = var.bastion_sg_description
   project = var.project
@@ -11,7 +12,8 @@ module "bastion" {
 }
 
 module "ingress_ALB_SG" {
-  source = "../../terraform-securitygroup-module"
+  #source = "../../terraform-securitygroup-module"
+  source = "git::https://github.com/Mahachopperla/terraform-securitygroup-module.git?ref=main"
   sg_name = "ingress-ALB-sg"
   sg_description = "creating ingress ALB"
   project = var.project
@@ -21,7 +23,8 @@ module "ingress_ALB_SG" {
 }
 
 module "eks_control_plane_SG" {
-  source = "../../terraform-securitygroup-module"
+  #source = "../../terraform-securitygroup-module"
+  source = "git::https://github.com/Mahachopperla/terraform-securitygroup-module.git?ref=main"
   sg_name = "eks-controlplane-SG"
   sg_description = "creating eks-controlplane-SG"
   project = var.project
@@ -31,7 +34,8 @@ module "eks_control_plane_SG" {
 }
 
 module "eks_nodes_SG" {
-  source = "../../terraform-securitygroup-module"
+  #source = "../../terraform-securitygroup-module"
+  source = "git::https://github.com/Mahachopperla/terraform-securitygroup-module.git?ref=main"
   sg_name = "eks-nodes-SG"
   sg_description = "creating eks-nodes-SG"
   project = var.project
