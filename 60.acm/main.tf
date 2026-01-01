@@ -33,7 +33,7 @@ resource "aws_route53_record" "certificate_validation_records" {
   zone_id         = var.hosted_zone_id
 }
 
-# once records are created to validate then we need to click on validate
+
 
 resource "aws_acm_certificate_validation" "robotshop_certificate_validation" {
   certificate_arn         = aws_acm_certificate.robotshop_certificate.arn

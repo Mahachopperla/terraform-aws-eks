@@ -1,5 +1,4 @@
 module "vpc" {
-    #we can use this modules directly from git repo using "syntax: "git::git-repo-url?ref=main""
     source = "git::https://github.com/Mahachopperla/terraform-vpc-module.git?ref=main"
     project = var.main_project
     environment = var.main_environment

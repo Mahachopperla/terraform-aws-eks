@@ -15,5 +15,3 @@ data "aws_ssm_parameter" "certificate_arn" {
 }
 
 
-# we need to check what is the name of vpc id they given and provide it's name here.
-#once we provide name this data soruce will fetch the value of it.

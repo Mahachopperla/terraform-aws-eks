@@ -17,10 +17,7 @@ terraform {
 
   }
 }
-    # - as we created 2 different backend bucket in tfvars that is not required in workspaces.
-		# - only one bucket is enough ...workspaces will craete themselves a separate folders for different environments and stores their 
-		# state files in that folders.
-		# - give keyname -> name of state file that is created
+  
     
 provider "aws" {
   # Configuration options
